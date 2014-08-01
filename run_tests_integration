@@ -1,0 +1,24 @@
+echo "=========================================="
+echo "Integration Tests"
+echo "=========================================="
+
+set -e
+
+foreman start &
+sleep 1
+
+for D in tests/integration/*; do
+	firstLine=$(head -n 1 $D)
+
+	if [[ $CI == true ]] || [[ $firstLine =~ .*testLocal.* ]];
+	then
+		echo "Running test: $D"
+		mocha $D --recursive --ui tdd --reporter spec --timeout 10000
+	else
+		echo "Skipping test: $D"
+	fi
+done
+
+pkill node
+
+echo "Integration tests complete"

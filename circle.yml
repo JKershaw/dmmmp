@@ -1,0 +1,22 @@
+machine:
+  environment:
+    MONGO_CONNECTION_STRING: mongodb://localhost
+    ENVIRONMENT: development
+
+test:
+  pre:
+    - ./run_tests_jshint
+  post:
+    - ./run_tests_unit
+    - ./run_tests_qunit
+    - ./run_tests_integration
+
+dependencies:
+  override:
+    - npm install jshint -g
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: dmmmp

@@ -1,0 +1,40 @@
+pkill node
+set -e
+
+export MONGO_CONNECTION_STRING=mongodb://localhost/
+export ENVIRONMENT=development
+
+if [ $# -gt 0  ]; then
+	echo "=========================================="
+	echo "Syncing with GitHub"
+	echo "=========================================="
+
+	#git pull
+else
+  echo "Skipping Git Pull from GitHub"
+fi
+
+./run_tests_jshint
+
+./run_tests_unit
+
+#./run_tests_qunit
+
+./run_tests_integration
+
+echo "=========================================="
+echo "All tests passed!"
+echo "=========================================="
+
+if [ $# -gt 0  ]; then
+	MESSAGE="$@"
+	echo "=========================================="
+	echo "Committing with message '$MESSAGE'"
+	echo "=========================================="
+	git add -A
+	git commit -am "$MESSAGE"
+	echo "Git Committed"
+	git push
+else
+  echo "No commit message, no commit"
+fi
