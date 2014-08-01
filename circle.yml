@@ -13,6 +13,7 @@ test:
 
 dependencies:
   override:
+    - npm install
     - npm install jshint -g
 
 deployment:

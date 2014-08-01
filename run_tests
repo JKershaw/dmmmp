@@ -8,8 +8,8 @@ if [ $# -gt 0  ]; then
 	echo "=========================================="
 	echo "Syncing with GitHub"
 	echo "=========================================="
-
-	#git pull
+	
+	git pull
 else
   echo "Skipping Git Pull from GitHub"
 fi
