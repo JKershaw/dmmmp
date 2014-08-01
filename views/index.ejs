@@ -1,5 +1,36 @@
+<% include header %>
 <% if (!user) { %>
-	<h2>Welcome! Please log in.</h2>
+
+<div class="jumbotron" style="margin-top:20px">
+	<h1>Drinking Makes Me More Productive</h1>
+	<ol>
+		<li>Log in with your GitHub account</li>
+		<li>Record when you drink</li>
+		<li>Monitor your productivity</li>
+	</ol>
+	<p><a class="btn btn-primary btn-lg" role="button" href="/auth/github">Login with GitHub</a></p>
+</div>
+
+
 <% } else { %>
-	<h2>Hello, <%= user.displayName %>.</h2>
+
+<div class="page-header">
+	<div class="row">
+		<div class="col-xs-6"><p>Drinking Makes Me More Productive<br /><small>dmmmp.com</small></p></div>
+		<div class="col-xs-6"><p style="text-align: right"><%= user.displayName %> - <a href="/logout">Logout</a></p></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary btn-lg btn-block"><br />Coffee<br />&nbsp;</button>
+	</div>
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary btn-lg btn-block"><br />Beer<br />&nbsp;</button>
+	</div>
+</div>
+
+
+
 <% } %>
+<% include footer %>

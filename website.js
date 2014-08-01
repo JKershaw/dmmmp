@@ -24,10 +24,9 @@ passport.use(new GitHubStrategy({
 		clientID: process.env.GITHUB_CLIENT_ID,
 		clientSecret: process.env.GITHUB_CLIENT_SECRET,
 		callbackURL: process.env.GITHUB_CALLBACK_URL,
-		scope: ['repo']
+		scope: ['repo', 'user']
 	},
 	function (accessToken, refreshToken, profile, done) {
-		// asynchronous verification, for effect...
 		process.nextTick(function () {
 
 			// To keep the example simple, the user's GitHub profile is returned to
@@ -58,9 +57,6 @@ app.configure(function () {
 	app.use(express.cookieParser());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-
-	// Initialize Passport!  Also use passport.session() middleware, to support
-	// persistent login sessions (recommended).
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
@@ -68,19 +64,9 @@ app.configure(function () {
 });
 
 app.get('/', function (req, res) {
+
+
 	res.render('index', {
-		user: req.user
-	});
-});
-
-app.get('/account', ensureAuthenticated, function (req, res) {
-	res.render('account', {
-		user: req.user
-	});
-});
-
-app.get('/login', function (req, res) {
-	res.render('login', {
 		user: req.user
 	});
 });
@@ -93,7 +79,7 @@ app.get('/auth/github',
 
 app.get('/auth/github/callback',
 	passport.authenticate('github', {
-		failureRedirect: '/login'
+		failureRedirect: '/'
 	}),
 	function (req, res) {
 		res.redirect('/');
@@ -113,5 +99,5 @@ function ensureAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
-	res.redirect('/login')
+	res.redirect('/');
 }
