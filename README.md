@@ -1,4 +1,8 @@
-basicTddProjectBase
+Drinking Makes Me More Productive
 ===================
 
-A very basic Nodejs setup for starting a project from scratch
+1) Log in with GitHub
+
+2) Record when you have a drink
+
+3) see your productivity change
